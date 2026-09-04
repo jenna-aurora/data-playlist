@@ -1,50 +1,55 @@
 console.log("Hello World");
 
 
-/*let button = document.getElementById("song-button");
 
-
-async function loadSongs() {
-  let response = await fetch("/api/v1/datasets/practice-chart/records?limit=3");
-  let data = await response.json();
-  let songs = data.records;
-  let song = songs[0];
-
-  console.log(songs);
-
-  document.getElementById("track-name").textContent = song["Track Name"];
-  document.getElementbyId("track-facts").textContent = "#" + song.Position + "-"
- + song.Artist;
-}
-
- button.addEventListener("click", function () {
-  loadSongs();
-});*/
-
+let button = document.getElementById("song-button");
+let nextButton = document.getElementById("next-button");
+let backButton = document.getElementById("back-button");
 let index = 0;
+let songs = [];
+
 
 async function loadSongs() {
-  let response = await fetch("https://student-data-api.jenna-a-cardenas.workers.dev/api/v1/datasets/viral-50-usa/records?limit=10");
+  let response = await fetch("https://student-data-api.jenna-a-cardenas.workers.dev/api/v1/datasets/viral-50-usa/records?limit=50");
   console.log("Status: " + response.status);
   let data = await response.json();
-  let songs = data.records;
-
-  console.log(songs);
+  songs = data.records;
+  console.log("Records: " + songs.length);
   
+  showSong();
+}
+  
+  
+ function showSong() {  
   let song = songs[index];
   
   document.getElementById("track-name").textContent = song["Track Name"];
   document.getElementById("track-facts").textContent = "#" + song.Position + " - " + song.Artist;
-  
- 
-  index++;
-  if (index >= songs.length) {
-	  index = 0;
-  }
-}
+  document.getElementById("track-count").textContent = (index + 1) + " of " + songs.length;
 
-let button = document.getElementById("song-button");
+ }
+ 
+
 	
 button.addEventListener("click", function () {
+	
 	loadSongs();
+});
+
+nextButton.addEventListener("click", function() {
+	index++;
+	if (index >= songs.length) {
+		index = 0;
+	}
+	
+	showSong();
+});
+
+backButton.addEventListener("click", function() {
+	if (index > 0) {
+		index = index - 1;
+		
+		showSong();
+		
+  }
 });
