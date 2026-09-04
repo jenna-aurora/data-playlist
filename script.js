@@ -4,7 +4,9 @@ console.log("Hello World");
 
 let button = document.getElementById("song-button");
 let nextButton = document.getElementById("next-button");
+let surpriseButton = document.getElementById("surprise-button");
 let backButton = document.getElementById("back-button");
+let topButton = document.getElementById("top-button");
 let index = 0;
 let songs = [];
 
@@ -26,7 +28,8 @@ async function loadSongs() {
   document.getElementById("track-name").textContent = song["Track Name"];
   document.getElementById("track-facts").textContent = "#" + song.Position + " - " + song.Artist;
   document.getElementById("track-count").textContent = (index + 1) + " of " + songs.length;
-
+  document.getElementById("track-chart").textContent;
+  document.getElementById("track-surprise").textContent;
  }
  
 
@@ -52,4 +55,16 @@ backButton.addEventListener("click", function() {
 		showSong();
 		
   }
+});
+
+topButton.addEventListener("click", function () {
+		index = 0;
+		
+		showSong();
+});
+
+surpriseButton.addEventListener("click", function () {
+	index = Math.floor(Math.random() * songs.length);
+	
+	showSong();
 });
