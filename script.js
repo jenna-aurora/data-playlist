@@ -8,10 +8,19 @@ let surpriseButton = document.getElementById("surprise-button");
 let backButton = document.getElementById("back-button");
 let topButton = document.getElementById("top-button");
 let saveButton = document.getElementById("save-button");
+let clearButton = document.getElementById("clear-button");
+let replaceButton = document.getElementById("replace-button");
+
 let index = 0;
 let favorites = [];
 let songs = [];
-
+let reactions = [
+	"Great choice!",
+	"Nice pick!",
+	"Added to your Top 5!",
+	"Love that song!",
+	"Excellent selection!"
+	];
 
 async function loadSongs() {
   let response = await fetch("https://student-data-api.jenna-a-cardenas.workers.dev/api/v1/datasets/viral-50-usa/records?limit=50");
@@ -116,8 +125,28 @@ saveButton.addEventListener("click", function () {
   if (favorites.length < 5) {
 	favorites.push(song["Track Name"] + " - " + song.Artist);
 		renderFavorites();
-		document.getElementById("save-message").textContent = "Saved";
+		
+	let reaction = reactions[Math.floor(Math.random() * reactions.length)];
+	document.getElementById("save-message").textContent = reaction;
   } else {
-		document.getElementById("save-message").textContent = "Your top 5 is full.";
+	document.getElementById("save-message").textContent = "Your top 5 is full.";
   }
+});
+
+clearButton.addEventListener("click", function () {
+  favorites = [];
+  renderFavorites();
+  document.getElementById("save-message").textContent = "";
+});
+
+replaceButton.addEventListener("click", function () {
+	let song = songs[index];
+	
+  if (favorites.length === 5) {
+	favorites[4] = song["Track Name"] + " - " + song.Artist;
+  	renderFavorites();
+	document.getElementById("save-message").textContent = "Replaced the fifth one.";
+  } else {
+	document.getElementById("save-message").textContent = "Fill your Top 5 first.";
+	}
 });
