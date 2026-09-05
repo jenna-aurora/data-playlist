@@ -7,7 +7,9 @@ let nextButton = document.getElementById("next-button");
 let surpriseButton = document.getElementById("surprise-button");
 let backButton = document.getElementById("back-button");
 let topButton = document.getElementById("top-button");
+let saveButton = document.getElementById("save-button");
 let index = 0;
+let favorites = [];
 let songs = [];
 
 
@@ -32,7 +34,15 @@ async function loadSongs() {
   document.getElementById("track-surprise").textContent;
  }
  
-
+ function renderFavorites() {
+	 let text = "";
+	 
+	 favorites.forEach(function (favorite) {
+	   text = text + "• " + favorite + " ";
+	 });
+	 
+	 document.getElementById("favorites-list").textContent = text;
+ }
 	
 button.addEventListener("click", function () {
 	
@@ -42,23 +52,54 @@ button.addEventListener("click", function () {
 nextButton.addEventListener("click", function() {
 	index++;
 	if (index >= songs.length) {
-		index = 0;
+	  index = 0;
 	}
 	
 	showSong();
 });
 
-backButton.addEventListener("click", function() {
-	if (index > 0) {
-		index = index - 1;
-		
-		showSong();
-		
+/* index++;
+  if(index > songs.length + 1) {
+    index = 0
   }
+  showSong();
+}); 
+(this does work)*/
+/*  if(index < songs.length - 1) {
+     index++;
+  }
+
+  showSong();
+}); 
+(shows nothing red in the console)*/
+
+backButton.addEventListener("click", function() {
+	index--;
+	if (index < 0) {
+	  index = songs.length - 1;
+	}
+		
+	showSong();
 });
 
+/* index--;
+	if (index > songs.length - 1) {
+	  index = 0;
+	}
+		
+	showSong();
+}); 
+(This does work)*/
+/*    if (index > 0) {
+     index--;
+   }
+
+   showSong();
+}); 
+(shows nothing red in the console)*/
+
 topButton.addEventListener("click", function () {
-		index = 0;
+	index = 0;
 		
 		showSong();
 });
@@ -67,4 +108,16 @@ surpriseButton.addEventListener("click", function () {
 	index = Math.floor(Math.random() * songs.length);
 	
 	showSong();
+});
+
+saveButton.addEventListener("click", function () {
+	let song = songs[index];
+	
+  if (favorites.length < 5) {
+	favorites.push(song["Track Name"] + " - " + song.Artist);
+		renderFavorites();
+		document.getElementById("save-message").textContent = "Saved";
+  } else {
+		document.getElementById("save-message").textContent = "Your top 5 is full.";
+  }
 });
