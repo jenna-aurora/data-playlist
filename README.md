@@ -12,6 +12,6 @@ Data Playlist is a web application built with HTML and JavaScript. HTML provides
 
 ## Live
 
-https://jenna-aurora.github.io/greeting-card-generator/
+https://jenna-aurora.github.io/data-playlist/
 
 Data Playlist is an interactive JavaScript web application that retrieves and displays data, allowing users to browse records through a simple interface with navigation controls. The project demonstrates API usage, dynamic content rendering, and user interaction using HTML and JavaScript
