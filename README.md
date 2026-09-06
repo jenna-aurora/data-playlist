@@ -34,3 +34,5 @@ images/chat-with-cats.png
 images/10-cats.png
 images/10-board-games.png
 images/viral-50-usa.png
+
+I added an images folder to my data-playlist repository to organize and store screenshots from my Day 2 assignments. The images are referenced in the README so that instructors and visitors can easily view examples of the completed work and application outputs.
